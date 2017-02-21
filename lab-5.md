@@ -57,13 +57,21 @@ void DAC_Init(uint16_t data){
   GPIO_PORTA_PCTL_R = (GPIO_PORTA_PCTL_R&0xFF0F00FF)+0x00202200;
   GPIO_PORTA_AMSEL_R = 0;         // disable analog functionality on PA
   SSI0_CR1_R = 0x00000000;        // disable SSI, master mode
-  SSI0_CPSR_R = 0x02;             // 8 MHz SSIClk (CPSDVR configures clock frequency) 										 Must be an even number from 2 to 254
-  									fSSI = fBUS(CPSDVSR * ( 1 + SCR)
+  SSI0_CPSR_R = 0x02;             // 8 MHz SSIClk (CPSDVR configures clock frequency)
+  								//Must be an even number from 2 to 254
+								//fSSI = fBUS(CPSDVSR * ( 1 + SCR)
   SSI0_CR0_R &= ~(0x0000FFF0);    // SCR = 0, SPH = 0, SPO = 0 Freescale.
-  								 // There are three mode control bits (MS = 0)
-								 //
+  								 // There are three mode control bits (MS, SPO, SPH)
+								 // IF MS =0 it generates the SCLK and data is outpt
+								 //on the SS10Tx pin and input in SSI0Rx pin
+								 //SPO specificies polarity of SCLK (see image below) 
+								 //specifies the logic level of the clock
+								 //SPH affects timing of the first bit transferred
+								 //and received. IF SPH is 0, then device will shift 
+								 //data in on 3,5,7,th clock edge (Rising clock edge)
   								 // SCR determines the clock frequency
-  SSI0_CR0_R |= 0x0F;             // DSS = 16-bit data
+  SSI0_CR0_R |= 0x0F;             // DSS = 16-bit data. specifies size of data needed
+  								//tobe transmitted
   SSI0_DR_R = data;               // load 'data' into transmit FIFO
   SSI0_CR1_R |= 0x00000002;       // enable SSI
 
@@ -92,3 +100,13 @@ uint16_t DAC_Out2(uint16_t code){   uint16_t receive;
 ~~~
 
 ![](http://i.markdownnotes.com/blob_WHbUuFF)
+
+Freescale SPI timing.
+SPI transmits data at the same time it receives input.
+SSIOTx = output
+SSIORx = input
+Shifts on 1st, 3rd 5th 7th clockedge (Rising clock edge) 
+
+![](http://i.markdownnotes.com/blob_xoIKCli)
+
+![](http://i.markdownnotes.com/blob_9fmCvPT)
