@@ -99,7 +99,7 @@ uint16_t DAC_Out2(uint16_t code){   uint16_t receive;
 }
 ~~~
 
-![](http://i.markdownnotes.com/blob_WHbUuFF)
+![](http://i.markdownnotes.com/blob_WHbUuFF_1_xbZo9Fs.jpg)
 
 Freescale SPI timing.
 SPI transmits data at the same time it receives input.
@@ -107,6 +107,6 @@ SSIOTx = output
 SSIORx = input
 Shifts on 1st, 3rd 5th 7th clockedge (Rising clock edge) 
 
-![](http://i.markdownnotes.com/blob_xoIKCli)
+![](http://i.markdownnotes.com/blob_xoIKCli_4QOYdUH.jpg)
+![](http://i.markdownnotes.com/blob_9fmCvPT.jpg)
 
-![](http://i.markdownnotes.com/blob_9fmCvPT)
