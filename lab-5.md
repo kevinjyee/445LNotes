@@ -1,7 +1,7 @@
-#Lab 5 Music PLayer and Audio Amp
-DAC, SSI, interrupts, data structures, audio amp 
+#Lab 5 Music Player and Audio Amp
+DAC, SSI, interrupts, data structures, audio amp, Signal-Noise Ratio
 
-###Periodic Timer
+##5.1 Periodic Timer
 ~~~
 // ***************** Timer0A_Init ****************
 // Activate Timer0A interrupts to run user task periodically
@@ -37,7 +37,7 @@ void Timer0A_Init(void(*task)(void), unsigned short period){
 	
 ~~~	
 	
-###SSI Interfacing
+##5.2 SSI Interfacing
 **Purpose:** SSI allows microcontrollers to communicate synchronously
 UART implements an asynchronous protocol
 SSI implements synchronous protocol
@@ -108,5 +108,43 @@ SSIORx = input
 Shifts on 1st, 3rd 5th 7th clockedge (Rising clock edge) 
 
 ![](http://i.markdownnotes.com/blob_xoIKCli_4QOYdUH.jpg)
+Polairty is shown above, this is what happens when we modify the SPO bit
 ![](http://i.markdownnotes.com/blob_9fmCvPT.jpg)
+General SSI Bits
 
+![](http://i.markdownnotes.com/blob_c2khmhD.jpg)
+Use PD0 for SSI 
+
+##5.3 Hardware
+![](http://i.markdownnotes.com/Capture1.PNG)
+
+###5.3a Shunt Diode
+**LM4041C - Shunt Diode** - used to create a stable 1.50V reference
+***Specificiations**
+~~~
+Iz = 80uA 
+IL = 1.5V/Rin (Rin is the input impedance about 100pF)
+VREF(1.233V)
+Select R1 and R2, RS
+Vz = Vref * ( 1 + R2/R1) = 1.5V
+Calculate:
+R2 ~ 25K and R1 ~100K
+	
+	Rs Resistor sets available current for shunt diode
+	Rs  ≤ (3.3-VZ)/(IL+IZ).
+	Rs ~ 22kohm
+
+
+	~~~
+	
+	
+###5.3b Speaker Interface
+Parts: current-amplifying audio amplifier
+**Resistors** :choosing RF and RI so the gain is one or less than one (gain = 2*RF/RI)
+**Capacitors** : Range of 0.1 to 0.47 uF 
+**CB** range of 1 to 4.7 uF 
+**Cs** range of 0.1 to 0.47 uF
+![](http://i.markdownnotes.com/Capture2_hdlo0XQ.PNG)
+
+###5.3c DAC Paramters 
+Order ourselves TLV5618 if we want awesome sound (2 Analog outputs and 2 speakers for stereo sound) 
