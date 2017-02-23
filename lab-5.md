@@ -105,15 +105,23 @@ Freescale SPI timing.
 SPI transmits data at the same time it receives input.
 SSIOTx = output
 SSIORx = input
-Shifts on 1st, 3rd 5th 7th clockedge (Rising clock edge) 
+SPH = 0 Shifts on 1st, 3rd 5th 7th clockedge (Rising clock edge) 
 
 ![](http://i.markdownnotes.com/blob_xoIKCli_4QOYdUH.jpg)
+
 Polairty is shown above, this is what happens when we modify the SPO bit
+
 ![](http://i.markdownnotes.com/blob_9fmCvPT.jpg)
+
 General SSI Bits
 
 ![](http://i.markdownnotes.com/blob_c2khmhD.jpg)
-Use PD0 for SSI 
+
+Use PD0 for SSI1 or SSI3 
+
+![](http://i.markdownnotes.com/Capture3_cX2QrlV.PNG)
+
+TLV5616 Data sheet has Data latched on the falling edge. As a result set SPH to 1.
 
 ##5.3 Hardware
 ![](http://i.markdownnotes.com/Capture1.PNG)
